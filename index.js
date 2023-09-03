@@ -10,7 +10,7 @@ import {By,Builder,Browser} from 'selenium-webdriver';
 
 function decideExtension(language){
     let languages={   
-        'C/+/+':'cpp',
+        'C\\+\\+':'cpp',
         'C#':'cs',
         'C':'c',
         'Python':'py',
@@ -19,7 +19,7 @@ function decideExtension(language){
 
     for (let languageName in languages){
         let reg=new RegExp(`^${languageName}`);
-        console.log('正規表現:',reg);
+        console.log(language,languageName);
         if(reg.test(language)){
             console.log(language,'に該当する拡張子を決定');
             return languages[languageName];
@@ -135,6 +135,6 @@ async function main(){
 
 // getSubmissions("adomine",0)
 
-main();
+// main();
 
-// decideExtension('C (GCC 5.4.1)');
+decideExtension('C++ (GCC 5.4.1)');
