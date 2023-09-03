@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef long long ll;
+typedef pair<ll, ll> pll;
+
+
+const ll LongINF=1e13+7;
+const int INF=1e9+7;
+const int dx[]={0,1,0,-1};
+const int dy[]={1,0,-1,0};
+
+template<class T> inline bool chmin(T& a, T b) {if (a > b) {a = b;return true;}return false;}
+template<class T> inline bool chmax(T& a, T b) {if (a < b) {a = b;return true;}return false;}
+template <class T, class Y>T GCD(T a, Y b){if(a<b){int c=a;a=b;b=c;}if (a % b == 0){return b;}return GCD(b, a % b);}
+void clear(queue<pair<int, int>> &q){queue<pair<int, int>> empty;swap(q, empty);} //queueの中身の型は適時変更を忘れない
+
+#define REP(i,a,b) for(int i=(a);i<(b);i++)
+#define rep(i,n) REP(i,0,n)
+#define pb push_back
+#define rv reverse
+#define ALL(a) (a).begin(),(a).end()
+
+
+int main(){
+    int N;
+    cin>>N;
+    vector<int> A(N);
+    rep(i,N)cin>>A[i];
+
+    vector<int> Color(9,0);
+
+    rep(i,N){
+        if(A[i]<400)Color[0]=1;
+        else if(A[i]<800)Color[1]=1;
+        else if(A[i]<1200)Color[2]=1;
+        else if(A[i]<1600)Color[3]=1;
+        else if(A[i]<2000)Color[4]=1;
+        else if(A[i]<2400)Color[5]=1;
+        else if(A[i]<2800)Color[6]=1;
+        else if(A[i]<3200)Color[7]=1;
+        else Color[8]++;
+    }
+    int MAX=0,MIN=0;
+
+    rep(i,8)MIN+=Color[i];
+    MAX=MIN+Color[8];
+    if(MIN==0&&Color[8])MIN=1;
+
+    cout<<MIN<<" "<<MAX<<endl;
+
+    return 0;
+}
+
+//a=97,z=122
