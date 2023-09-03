@@ -1,17 +1,16 @@
-# name: init_scraping.yml
-# on: workflow_dispatch
+name: init_scraping.yml
+on: workflow_dispatch
 
-# jobs:
-#   get_submission_codes:
-#     runs-on: ubuntu-latest
-#     steps: 
-#       -name: build
-#        uses: actions/checkout@3
-#        uses: actions/setup-node@v3
-#         with:
-#           node-version: '20'
-#       -name: install dependencies
-#        run: npm install selenium-webdriver
-#       -name: Run scraping
-#        run: node index.js
-#       -name: 
+jobs:
+  get_submission_codes:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@3
+      - name: build
+        uses: actions/setup-node@v3
+        with: 
+          node-version: '20'
+      - name: install dependencies
+        run: npm install selenium-webdriver
+      - name: Run scraping
+        run: node index.js
