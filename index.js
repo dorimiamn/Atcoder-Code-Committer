@@ -33,7 +33,7 @@ async function getSubmissions(user_id,time){
     const response= await fetch("https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions?user="+ user_id+"&from_second="+time);
     const submissions=await response.json();
 
-    console.log(Object.keys(submissions).length);
+    console.log('取得件数',Object.keys(submissions).length);
 
     return submissions;
 }
@@ -78,6 +78,7 @@ async function main(){
     //最新の提出のunix_secondと取得した提出の最新unix_secondが同じであれば処理を終了する？
     //取得した提出件数が0であれば処理を終了させる
     let isContinue=true;
+    let cntAC=0;
 
     while(isContinue){
         console.log('処理開始');
@@ -86,13 +87,17 @@ async function main(){
             const len=Object.keys(submissions).length;
             if(len===0){
                 isContinue=false;
-                return ;
+                return 0;
             }
             for(let i=0;i<len;i++){
-                console.log(i + '件目のsubmission処理');
+                console.log(i + '件目の submission 処理');
                 unix_second=submissions[i]["epoch_second"];
                 
                 if(submissions[i]["result"]!=="AC")continue;
+
+                cntAC++;
+                console.log('処理済み AC 数',cntAC);
+
                 const submission_id=submissions[i]["id"];
                 const contest_id=submissions[i]["contest_id"];
                 const problem_id=submissions[i]["problem_id"];
@@ -112,7 +117,6 @@ async function main(){
                 }
                 
                 await getSubmissionCode(contest_id,submission_id).then(async(code)=>{
-                    console.log(i);
                     await writeSubmissionCode(contest_id,problem_id,extension,code);
                 })
                 console.log("コード取得処理終了:"+i);
@@ -122,7 +126,13 @@ async function main(){
             console.log(len + '件の処理終了');
             return ;
         })
-        console.log('取得したsubmissionsの処理終了');
+        if(!isContinue){
+            break;
+        }
+        console.log('取得した submissions の処理終了');
+
+        //unix_second を 1 加算
+        unix_second = Number(unix_second) + 1;
         await setTimeout(10000);
     }
     console.log('処理終了');
