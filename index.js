@@ -19,9 +19,8 @@ function decideExtension(language){
 
     for (let languageName in languages){
         let reg=new RegExp(`^${languageName}`);
-        console.log(language,languageName);
         if(reg.test(language)){
-            console.log(language,'に該当する拡張子を決定');
+            console.log(language,'に該当する拡張子として ' + languages[languageName] +' を決定');
             return languages[languageName];
         }
     }
@@ -71,6 +70,8 @@ async function writeSubmissionCode(contest_id,problem_id,extension,code){
 //処理の中心となる関数
 
 let unix_second=0;
+
+//取得したACコードをカウンt
 
 async function main(){
     //提出をJSONで複数件取得する
@@ -135,6 +136,6 @@ async function main(){
 
 // getSubmissions("adomine",0)
 
-// main();
+main();
 
-decideExtension('C++ (GCC 5.4.1)');
+// decideExtension('C++ (GCC 5.4.1)');
